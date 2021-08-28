@@ -6,6 +6,8 @@
 # sudo pacman -S libnotify notification-daemon dbus at-spi2-core tk python
 import tkinter as tk
 #from tkinter import *
+from tkinter import simpledialog
+
 import time
 from threading import Timer
 from notifypy import Notify
@@ -22,6 +24,8 @@ options = tk.Tk()
 options.title("Options")
 options.geometry('250x100')
 
+#Creating a universal alarm sound variable that can be accessed by all of the frames
+alarmSound = "alarm-sound.wav"
 
 class AboutApp(tk.Frame):
     def __init__(self, master=about):
@@ -66,6 +70,11 @@ class Options(tk.Frame):
         self.minusButton["command"] = (lambda: self.updateTime(-60, master))
         self.minusButton.pack(side="left")
         
+        self.soundButton = tk.Button(self)
+        self.soundButton["text"] = "Timer Sound"
+        self.soundButton["command"] = (lambda: self.changeSound())
+        self.soundButton.pack(side="bottom")
+
         self.label.pack(side="top")
     
     def updateTime(self, addition, master):
@@ -82,6 +91,9 @@ class Options(tk.Frame):
     def getOGTime(self):
         return self.OGTime
 
+    def changeSound(self):
+        global alarmSound 
+        alarmSound = simpledialog.askstring("Input", "What is the name of the alarm sound file? Make sure it is in the same directory as work-term.py!",parent=options)
 
 class Application(tk.Frame):
     def __init__(self, optionsPanel, master=None):
@@ -140,7 +152,7 @@ class Application(tk.Frame):
                     notification = Notify()
                     notification.title = "Timer is up"
                     notification.message = str(optionsPanel.getOGTime()/60) + " minutes elapsed! Go take a rest. ;)"
-                    notification.audio = "alarm-sound.wav"
+                    notification.audio = alarmSound
                     notification.send(block=False)
 #	def update(self, master=None):
 #		label.config(text=str(finaltime))
