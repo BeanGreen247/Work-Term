@@ -23,7 +23,7 @@ sudo pacman -S libnotify notification-daemon dbus at-spi2-core tk python
 > 
 > ~~Custom time length~~ 
 > 
-> Custom alarm sound
+> ~~Custom alarm sound~~
 
 More features can be suggested/requested via Email or social media.
 
