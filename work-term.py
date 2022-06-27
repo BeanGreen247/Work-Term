@@ -12,6 +12,8 @@ import time
 from threading import Timer
 from notifypy import Notify
 
+import sys
+
 root = tk.Tk()
 root.title("Work-Term")
 root.geometry('250x100')
@@ -118,7 +120,7 @@ class Application(tk.Frame):
         
         #print("button1 created")
         
-        self.quit = tk.Button(self, text="Exit", command=self.master.destroy)
+        self.quit = tk.Button(self, text="Exit", command=lambda:[self.master.destroy,sys.exit()])
         self.quit.pack(side="right")
         #print("button2 created")
 
